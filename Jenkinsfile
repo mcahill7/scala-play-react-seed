@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Clean'{
+            steps {
+                echo 'Testing..'
+                sh 'sbt clean' 
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
@@ -22,7 +28,7 @@ pipeline {
         }
         stage('Setup') {
             steps {
-                sh 'set -x && unzip -d svc target/universal/*-1.0-SNAPSHOT.zip && mv svc/*/* svc/ && rm svc/bin/*.bat && mv svc/bin/* svc/bin/start'
+                sh 'set -x && unzip -d svc target/universal/*-1.0-SNAPSHOT.zip && mv svc/*/* svc/ && rm svc/bin/*.bat && mv svc/bin/* svc/bin/start -y'
             }
         }
         stage('Build Image') {
